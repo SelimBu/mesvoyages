@@ -20,6 +20,17 @@ class VisiteRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Visite::class);
     }
+    
+    /**
+     * Supprime une visite
+     * @param Visite $visite
+     * @return void
+     */
+    public function remove(Visite $visite): void
+    {
+        $this->getEntityManager()->remove($visite);
+        $this->getEntityManager()->flush();
+    } 
 
     //    /**
     //     * @return Visite[] Returns an array of Visite objects
