@@ -8,6 +8,11 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<Environnement>
+ *
+ * @method Environnement|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Environnement|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Environnement[]    findAll()
+ * @method Environnement[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class EnvironnementRepository extends ServiceEntityRepository
 {
@@ -15,29 +20,27 @@ class EnvironnementRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Environnement::class);
     }
+    
+    /**
+     * Supprime un environnement
+     * @param Environnement $environnement
+     * @return void
+     */
+    public function remove(Environnement $environnement): void
+    {
+        $this->getEntityManager()->remove($environnement);
+        $this->getEntityManager()->flush();
+    }    
 
-    //    /**
-    //     * @return Environnement[] Returns an array of Environnement objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('e')
-    //            ->andWhere('e.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('e.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * Ajoute un environnement
+     * @param Environnement $environnement
+     * @return void
+     */
+    public function add(Environnement $environnement): void
+    {
+        $this->getEntityManager()->persist($environnement);
+        $this->getEntityManager()->flush();
+    }    
 
-    //    public function findOneBySomeField($value): ?Environnement
-    //    {
-    //        return $this->createQueryBuilder('e')
-    //            ->andWhere('e.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }
